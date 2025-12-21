@@ -1,0 +1,11 @@
+[project]
+name = "etl-cloud"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "boto3>=1.42.13",
+    "faker>=39.0.0",
+    "mypy-boto3-s3>=1.42.10",
+]
