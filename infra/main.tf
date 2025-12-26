@@ -144,3 +144,31 @@ resource "aws_athena_workgroup" "main" {
   description = "Workgroup for Badr Datalake - Enforces S3 results and cost limits"
   state       = "ENABLED"
 }
+
+resource "aws_s3_bucket_policy" "quicksight_access" {
+  bucket = "badr-datalake-gold-us-east-1"
+
+  policy = jsonencode({
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowQuick",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::720424066451:role/service-role/aws-quicksight-service-role-v0"
+      },
+      "Action": [
+        "s3:GetObject",
+        "s3:ListBucket",
+        "s3:GetBucketLocation",
+        "s3:GetObjectVersion",
+        "s3:ListBucketVersions"
+      ],
+      "Resource": [
+        "arn:aws:s3:::badr-datalake-gold-us-east-1",
+        "arn:aws:s3:::badr-datalake-gold-us-east-1/*"
+      ]
+    }
+  ]
+})
+}
