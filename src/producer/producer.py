@@ -104,8 +104,8 @@ class S3Uploader:
 if __name__ == "__main__":
     import os
 
-    S3_BUCKET = os.getenv('BRONZE_BUCKET_NAME', 'badr-datalake-bronze-us-east-1')
-    BATCH_SIZE = 10
+    S3_BUCKET = os.getenv('TF_VAR_bronze_bucket', '')
+    BATCH_SIZE = 1
 
     s3_uploader = S3Uploader(bucket_name=S3_BUCKET)
     
