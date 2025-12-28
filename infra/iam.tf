@@ -42,3 +42,38 @@ resource "aws_iam_role_policy" "glue_s3_access" {
     }]
   })
 }
+
+resource "aws_iam_role" "ec2_producer_role" {
+  name = "ec2-producer-role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Action = "sts:AssumeRole"
+      Effect = "Allow"
+      Principal = { Service = "ec2.amazonaws.com" }
+    }]
+  })
+}
+
+resource "aws_iam_role_policy" "ec2_s3_write" {
+  name = "ec2-s3-write-policy"
+  role = aws_iam_role.ec2_producer_role.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect   = "Allow"
+      Action   = ["s3:PutObject", "s3:ListBucket"]
+      Resource = [
+        "arn:aws:s3:::${var.bronze_bucket}",
+        "arn:aws:s3:::${var.bronze_bucket}/*"
+      ]
+    }]
+  })
+}
+
+resource "aws_iam_instance_profile" "ec2_profile" {
+  name = "ec2-producer-profile"
+  role = aws_iam_role.ec2_producer_role.name
+}
