@@ -55,19 +55,23 @@ The pipeline follows a modern data lakehouse architecture:
 The pipeline processes e-commerce orders with the following structure:
 
 ```json
-metadata:
-  - source_system: String
-  - ingestion_timestamp: Timestamp
-  - schema_version: String
+{
+  "metadata": {
+    "source_system": "String",
+    "ingestion_timestamp": "Timestamp",
+    "schema_version": "String"
+  },
+  "payload": {
+    "order_id": "Integer",
+    "customer_id": "Integer",
+    "product_id": "Integer",
+    "amount": "String",
+    "currency": "String",
+    "event_timestamp": "String",
+    "region": "String"
+  }
+}
 
-payload:
-  - order_id: Integer
-  - customer_id: Integer
-  - product_id: Integer
-  - amount: String
-  - currency: String
-  - event_timestamp: String
-  - region: String
 ```
 
 ## Prerequisites
