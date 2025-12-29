@@ -104,14 +104,15 @@ class S3Uploader:
 if __name__ == "__main__":
     import os
 
-    S3_BUCKET = os.getenv('TF_VAR_bronze_bucket', '')
+    S3_BUCKET = os.getenv('TF_VAR_bronze_bucket', 'badr-datalake-bronze-us-east-1')
     BATCH_SIZE = 1
 
-    s3_uploader = S3Uploader(bucket_name=S3_BUCKET)
-    
-    for batch in generate_chaos_data(BATCH_SIZE):
-        success = s3_uploader.upload_to_bronze(batch=batch)
-        if success:
-            print('Successfully uploaded to s3...')
-        else:
-            print('Problem occured while uploading to s3!')
+    if S3_BUCKET:
+        s3_uploader = S3Uploader(bucket_name=S3_BUCKET)
+        
+        for batch in generate_chaos_data(BATCH_SIZE):
+            success = s3_uploader.upload_to_bronze(batch=batch)
+            if success:
+                print('Successfully uploaded to s3...')
+            else:
+                print('Problem occured while uploading to s3!')
