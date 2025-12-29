@@ -5,8 +5,7 @@ import sys
 from pathlib import Path
 
 
-DATABASE = "badr_datalake"
-DATABASE = os.getenv('DATABASE_NAME', 'default_db')
+DATABASE = os.getenv('TF_VAR_db_name', 'default_db')
 WORKGROUP = "primary_workgroup"
 QUERIES_DIR = Path(__file__).parent.parent / "queries"
 
