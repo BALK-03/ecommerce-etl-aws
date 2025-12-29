@@ -1,2 +1,1 @@
-<<<<<<< Updated upstream
-
+![Image](docs/architecture.png)
