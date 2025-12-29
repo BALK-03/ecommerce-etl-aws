@@ -38,7 +38,7 @@ resource "aws_instance" "producer_server" {
                 touch $LOG_FILE
                 chown ec2-user:ec2-user $LOG_FILE
 
-                CRON_COMMAND="* * * * * $VENV_PYTHON $PRODUCER_SCRIPT >> $LOG_FILE 2>&1"
+                CRON_COMMAND="*/5 * * * * $VENV_PYTHON $PRODUCER_SCRIPT >> $LOG_FILE 2>&1"
 
                 echo "$CRON_COMMAND" | sudo -u ec2-user crontab -
 
